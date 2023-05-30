@@ -20,6 +20,7 @@ class AbstractProjector(ABC):
         self.connected_device = connected_device
         self.resolution = resolution
         self.lamp_hours = lamp_hours
+        self.some_attribute = 0
 
     @abstractmethod
     def get_remaining_working_hours(self):
@@ -30,3 +31,6 @@ class AbstractProjector(ABC):
                f"Connected Device: {self.connected_device}, " \
                f"Resolution: {self.resolution}, " \
                f"Lamp Hours: {self.lamp_hours}"
+
+    def do_something(self):
+        return "Doing something"
