@@ -130,4 +130,4 @@ class Projector(AbstractProjector):
         Returns:
             str: A message indicating that something is being done.
         """
-        return "Doing something"
+        return "Run projector"

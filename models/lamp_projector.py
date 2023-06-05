@@ -1,5 +1,8 @@
+"""
+Lamp projector class
+"""
 
-from .abstract_projector import AbstractProjector
+from models.abstract_projector import AbstractProjector
 
 
 # pylint: disable=too-many-arguments
@@ -25,9 +28,18 @@ class LampProjector(AbstractProjector):
         self.some_attribute = 0
 
     def set_display_mode(self, mode):
+        """
+
+        :param mode:
+        :return:
+        """
         self.display_mode = mode
 
     def get_remaining_working_hours(self):
+        """
+
+        :return:
+        """
         return self.max_lamp_hours - self.lamp_hours
 
     def __str__(self):
@@ -35,4 +47,8 @@ class LampProjector(AbstractProjector):
                f"Resolution: {self.display_mode}, " f"Lens: {self.max_lamp_hours}"
 
     def do_something(self):
-        return "Doing something"
+        """
+
+        :return:
+        """
+        return "Run lamp projector"

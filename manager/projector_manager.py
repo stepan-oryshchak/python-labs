@@ -1,3 +1,10 @@
+"""
+Representing a projector manager.
+"""
+
+
+# pylint: disable = too-many-arguments
+# pylint: disable = line-too-long
 class ProjectorManager:
     """
     ProjectorManager class manages projectors.
@@ -11,7 +18,8 @@ class ProjectorManager:
         get_enumerated(): Returns a concatenation of each projector with its index.
         get_zipped_results(): Returns a zip of each projector with the results of a specific method.
         get_attributes_by_type(): Returns a dictionary of attributes filtered by a specific data type.
-        check_conditions(): Returns a dictionary indicating if all or any projectors satisfy a given condition.
+        check_conditions(): Returns a dictionary indicating if all or any projectors satisfy
+         a given condition.
     """
 
     def __init__(self):
@@ -58,9 +66,12 @@ class ProjectorManager:
 
     def get_enumerated(self):
         """
-        Returns a concatenation of each projector with its index.
+        Returns a concatenation of each projector's object and its index in the manager's collection.
+
+        Returns:
+            list: A list of tuples containing each projector's object and its index.
         """
-        return [f"{index}: {projector}" for index, projector in enumerate(self.projectors)]
+        return [(index + 1, projector) for index, projector in enumerate(self.projectors)]
 
     def get_zipped_results(self, method_name):
         """
@@ -71,20 +82,26 @@ class ProjectorManager:
         """
         return list(zip(self.projectors, self.get_results(method_name)))
 
+    def check_conditions(self, condition_func):
+        """
+        Returns a dictionary indicating if all and any projectors satisfy a certain condition.
+
+        Returns:
+            dict: A dictionary with keys all and any indicating if all and any projectors satisfy a certain condition
+        """
+        all_satisfy = all(condition_func(projector) for projector in self.projectors)
+        any_satisfy = any(condition_func(projector) for projector in self.projectors)
+        return {"all": all_satisfy, "any": any_satisfy}
+
     def get_attributes_by_type(self, data_type):
         """
-        Returns a dictionary of attributes filtered by a specific data type.
+        Returns a dictionary with attributes and values of each projector that have values of the specified type.
 
         Args:
-            data_type: The data type to filter attributes by.
-        """
-        return {key: value for projector in self.projectors for key, value in projector.__dict__.items() if isinstance(value, data_type)}
+            data_type (type): The type of values to filter attributes by.
 
-    def check_conditions(self, condition):
+        Returns:
+            dict: A dictionary with attributes and values of each projector that have values of the specified type.
         """
-        Returns a dictionary indicating if all or any projectors satisfy a given condition.
-
-        Args:
-            condition: The condition to check for each projector.
-        """
-        return {"all": all(condition(projector) for projector in self.projectors), "any": any(condition(projector) for projector in self.projectors)}
+        return {attribute: type_of_attr for obj in self.projectors for attribute, type_of_attr in obj.__dict__.items()
+                if isinstance(type_of_attr, data_type)}
