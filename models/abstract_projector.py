@@ -1,3 +1,7 @@
+"""
+Abstract projector class
+"""
+
 from abc import ABC, abstractmethod
 
 
@@ -20,9 +24,14 @@ class AbstractProjector(ABC):
         self.connected_device = connected_device
         self.resolution = resolution
         self.lamp_hours = lamp_hours
+        self.some_attribute = 0
 
     @abstractmethod
     def get_remaining_working_hours(self):
+        """
+
+        :return:
+        """
         pass
 
     def __str__(self):
@@ -30,3 +39,11 @@ class AbstractProjector(ABC):
                f"Connected Device: {self.connected_device}, " \
                f"Resolution: {self.resolution}, " \
                f"Lamp Hours: {self.lamp_hours}"
+
+    @abstractmethod
+    def do_something(self):
+        """
+
+        :return:
+        """
+        return "Doing something"
